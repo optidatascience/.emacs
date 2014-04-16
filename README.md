@@ -1,0 +1,4 @@
+.emcas
+======
+
+emacs config file
