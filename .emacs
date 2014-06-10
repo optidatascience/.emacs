@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Wed Apr 16 14:16:42 2014 (-0500)
+;; Last-Updated: Mon Jun  9 22:50:42 2014 (-0500)
 ;;           By: Liang Zhou
-;;     Update #: 4
+;;     Update #: 5
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -94,6 +94,8 @@
 ;; ESS
 ;;
 ;;this is turned on by default now through /etc/emacs
+(add-to-list 'load-path "~/.emacs.d/ESS/lisp/")
+(load "ess-site")
 
 ;;
 ;; TRAMP
@@ -105,21 +107,21 @@
 ;;
 ;; Ampl mode (GNU Math Prog too)
 ;;
-;; Tell emacs to look in our emacs directory for extensions
-(add-to-list 'load-path "/home/lzhou/sys/ampl")
+;; ;; Tell emacs to look in our emacs directory for extensions
+;; (add-to-list 'load-path "/home/lzhou/sys/ampl")
 
-(setq auto-mode-alist
-      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
-(setq interpreter-mode-alist
-      (cons '("ampl" . ampl-mode)
-            interpreter-mode-alist))
-(load "ampl-mode")
-;; Enable syntax coloring
-(add-hook 'ampl-mode-hook 'turn-on-font-lock)
+;; (setq auto-mode-alist
+;;       (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
+;; (setq interpreter-mode-alist
+;;       (cons '("ampl" . ampl-mode)
+;;             interpreter-mode-alist))
+;; (load "ampl-mode")
+;; ;; Enable syntax coloring
+;; (add-hook 'ampl-mode-hook 'turn-on-font-lock)
 
 ;; If you find parenthesis matching a nuisance, turn it off by
 ;; removing the leading semi-colons on the following lines:
