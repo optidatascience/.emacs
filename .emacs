@@ -68,7 +68,7 @@
 (setq default-frame-alist
       (append
        '(
-	 (width             . 120)
+	 (width             . 150)
 	 (height            . 40)
 	 (background-color  . "black")
 	 (foreground-color  . "green")
@@ -80,6 +80,11 @@
        default-frame-alist
        )
       )
+
+;;
+;; Set font size to 9 pt
+(set-face-attribute 'default nil :height 90)
+
 
 ;;
 ;; Liang's convenience 
