@@ -1,0 +1,4 @@
+#!/bin/sh
+free=`free -m | grep - | awk '{print $4}'`
+avail=`free -m | grep Mem | awk '{print $2}'`
+echo "${free}MB/${avail}MB"
