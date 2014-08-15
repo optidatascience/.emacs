@@ -75,7 +75,7 @@ hardstatus string "%h%? users: %u%?"
 hardstatus lastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
 
 ### HACK: trying something here...
-backtick 1 60 60 "/usr/local/bin/get_freem"
+backtick 1 60 60 "$HOME/emacsconfig/get_freem"
 hardstatus alwayslastline '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}[%{W}%n%f %t%?(%u)%?%{=b kR}]%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b kR}[%1`]%{=b C}[ %D %m/%d %C%a ]%{W}'
 
 # set these terminals up to be 'optimal' instead of vt100
