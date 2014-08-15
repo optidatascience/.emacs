@@ -13,6 +13,12 @@ This repo contains my personal .emacs configuaration file. It includes the follo
    - ESS
    - AMPL Mode
    - TRAMP
-   - IPython Mode
-   (Make header is included for the above modes)
+   - IPython Mode (Make header is included for the above modes)
 
+   - Markdown Mode  
+
+     git clone git://jblevins.org/git/markdown-mode.git
+
+   - PolyMode git clone (to work with R markdown .Rmd)
+
+     git clone https://github.com/vitoshka/polymode.git
