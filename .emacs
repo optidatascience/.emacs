@@ -166,5 +166,25 @@
 (add-hook 'R-mode-hook   'auto-make-header)
 (add-hook 'lisp-mode-hook   'auto-make-header)
 
+;;
+;; polymode (to work with R markdown .Rmd)
+;;
+(setq load-path
+      (append '("~/.emacs.d/polymode/"  "~/.emacs.d/polymode/modes" "~/.emacs.d/markdown-mode/")
+              load-path))
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(require 'poly-R)
+(require 'poly-markdown)
+;; MARKDOWN
+(add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
+;; R modes
+(add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
+;; Remove Rnw for now, as emacs has built-in support for .Rnw
+;;(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here
