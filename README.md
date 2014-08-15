@@ -16,6 +16,9 @@ This repo contains my personal .emacs configuaration file. It includes the follo
    - IPython Mode
    (Make header is included for the above modes)
 
-   - Markdown Mode  git clone git://jblevins.org/git/markdown-mode.git
-   - PolyMode git clone https://github.com/vitoshka/polymode.git
-   (to work with R markdown .Rmd)
+   - Markdown Mode  
+
+     git clone git://jblevins.org/git/markdown-mode.git
+   - PolyMode git clone (to work with R markdown .Rmd)
+
+     https://github.com/vitoshka/polymode.git
