@@ -111,7 +111,7 @@
 ;; Ampl mode (GNU Math Prog too)
 ;;
 ;; Tell emacs to look in our emacs directory for extensions
-(add-to-list 'load-path "/home/lzhou/sys/ampl")
+(add-to-list 'load-path "~/.emacs.d/ampl-mode/emacs/")
 
 (setq auto-mode-alist
       (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
@@ -184,6 +184,11 @@
 ;;(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
 (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
 
+;;
+;; php-mode
+;;
+(add-to-list 'load-path' "~/.emacs.d/php-mode/")
+(require 'php-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
