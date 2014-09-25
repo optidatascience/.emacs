@@ -81,6 +81,16 @@
        )
       )
 
+;; 
+;; Color theme
+;; this is to overide the settings above for colors
+;; and to be consistent with using shell or x11
+(require 'color-theme)
+(color-theme-initialize)
+(if window-system
+        (color-theme-calm-forest)
+	(color-theme-calm-forest))
+
 ;;
 ;; Set font size to 9 pt
 (set-face-attribute 'default nil :height 90)

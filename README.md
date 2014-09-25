@@ -11,6 +11,10 @@ This repo contains my personal .emacs configuaration file. It includes the follo
 3. Region selection by mouse
 4. Configured modules includes:
    - ESS
+   - Color Theme
+
+     sudo apt-get install emacs-goodies-el
+
    - AMPL Mode
 
      git clone https://github.com/dpo/ampl-mode.git
