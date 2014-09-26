@@ -114,5 +114,5 @@ defnonblock 5
 # Liang added
 # ------------------------------------------------------------------------------
 ## to retain the color settings from orig. shell
-term xterm-256color
+term screen-256color
 
