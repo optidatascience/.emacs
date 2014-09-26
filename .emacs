@@ -91,6 +91,18 @@
         (color-theme-calm-forest)
 	(color-theme-calm-forest))
 
+;; 
+;; Keymap
+;; this fixes the keymap in screen mode with screen-256color term
+;;
+(define-key input-decode-map "\e[1;2D" [S-left])
+(define-key input-decode-map "\e[1;2C" [S-right])
+(define-key input-decode-map "\e[1;2B" [S-down])
+(define-key input-decode-map "\e[1;2A" [S-up])
+(define-key input-decode-map "\e[1;2F" [S-end])
+(define-key input-decode-map "\e[1;2H" [S-home])
+
+
 ;;
 ;; Set font size to 9 pt
 (set-face-attribute 'default nil :height 90)
