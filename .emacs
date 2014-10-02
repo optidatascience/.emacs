@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Wed Apr 16 14:16:42 2014 (-0500)
+;; Last-Updated: Wed Oct  1 21:57:40 2014 (-0500)
 ;;           By: Liang Zhou
-;;     Update #: 4
+;;     Update #: 5
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -85,6 +85,7 @@
 ;; Color theme
 ;; this is to overide the settings above for colors
 ;; and to be consistent with using shell or x11
+(add-to-list 'load-path "~/.emacs.d/color-theme/")
 (require 'color-theme)
 (color-theme-initialize)
 (if window-system
@@ -95,12 +96,12 @@
 ;; Keymap
 ;; this fixes the keymap in screen mode with screen-256color term
 ;;
-(define-key input-decode-map "\e[1;2D" [S-left])
-(define-key input-decode-map "\e[1;2C" [S-right])
-(define-key input-decode-map "\e[1;2B" [S-down])
-(define-key input-decode-map "\e[1;2A" [S-up])
-(define-key input-decode-map "\e[1;2F" [S-end])
-(define-key input-decode-map "\e[1;2H" [S-home])
+;;(define-key input-decode-map "\e[1;2D" [S-left])
+;;(define-key input-decode-map "\e[1;2C" [S-right])
+;;(define-key input-decode-map "\e[1;2B" [S-down])
+;;(define-key input-decode-map "\e[1;2A" [S-up])
+;;(define-key input-decode-map "\e[1;2F" [S-end])
+;;(define-key input-decode-map "\e[1;2H" [S-home])
 
 
 ;;
@@ -191,20 +192,20 @@
 ;;
 ;; polymode (to work with R markdown .Rmd)
 ;;
-(setq load-path
-      (append '("~/.emacs.d/polymode/"  "~/.emacs.d/polymode/modes" "~/.emacs.d/markdown-mode/")
-              load-path))
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(require 'poly-R)
-(require 'poly-markdown)
-;; MARKDOWN
-(add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
-;; R modes
-(add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
-;; Remove Rnw for now, as emacs has built-in support for .Rnw
-;;(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
-(add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
+;; (setq load-path
+;;       (append '("~/.emacs.d/polymode/"  "~/.emacs.d/polymode/modes" "~/.emacs.d/markdown-mode/")
+;;               load-path))
+;; (autoload 'markdown-mode "markdown-mode"
+;;    "Major mode for editing Markdown files" t)
+;; (require 'poly-R)
+;; (require 'poly-markdown)
+;; ;; MARKDOWN
+;; (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
+;; ;; R modes
+;; (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
+;; ;; Remove Rnw for now, as emacs has built-in support for .Rnw
+;; ;;(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+;; (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
 
 ;;
 ;; php-mode
