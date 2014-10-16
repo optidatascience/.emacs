@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Wed Apr 16 14:16:42 2014 (-0500)
+;; Last-Updated: Thu Oct 16 09:09:19 2014 (-0500)
 ;;           By: Liang Zhou
-;;     Update #: 4
+;;     Update #: 28
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -116,6 +116,23 @@
 (define-key global-map (kbd "<S-mouse-1>") 'mouse-set-point)
 (put 'mouse-set-point 'CUA 'move)
 
+;;
+;; Automatic Package Mangement
+;;
+(require 'package)
+(add-to-list 'package-archives 
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+    '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
+(if (not (package-installed-p 'use-package))
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)))
+(require 'use-package)
+
 
 ;;
 ;; ESS
@@ -125,14 +142,16 @@
 ;;
 ;; TRAMP
 ;;
-;; suppose tramp is installed under ~/.emacs.d
+(use-package tramp
+  :ensure tramp)
 (require 'tramp)
-
 
 ;;
 ;; Ampl mode (GNU Math Prog too)
 ;;
 ;; Tell emacs to look in our emacs directory for extensions
+;; AMPL mode cannot be auto installed.. not in Melpa
+
 (add-to-list 'load-path "~/.emacs.d/ampl-mode/emacs/")
 
 (setq auto-mode-alist
@@ -150,16 +169,17 @@
 
 ;; If you find parenthesis matching a nuisance, turn it off by
 ;; removing the leading semi-colons on the following lines:
-;(setq ampl-auto-close-parenthesis nil)
-;(setq ampl-auto-close-brackets nil)
-;(setq ampl-auto-close-curlies nil)
-;(setq ampl-auto-close-double-quote nil)
-;(setq ampl-auto-close-single-quote nil)
+;; (setq ampl-auto-close-parenthesis nil)
+;; (setq ampl-auto-close-brackets nil)
+;; (setq ampl-auto-close-curlies nil)
+;; (setq ampl-auto-close-double-quote nil)
+;; (setq ampl-auto-close-single-quote nil)
 
 ;;
 ;; ipython 
 ;;
 ;; python module should be installed by default
+;;
 (require 'python)
 (setq
   python-shell-interpreter "ipython"
@@ -178,6 +198,8 @@
 ;; header2.el (make-header)
 ;;
 ;; download header2.el from http://www.emacswiki.org/emacs/header2.el
+;; header2.el is cleaned a bit
+;;
 (add-to-list 'load-path' "~/.emacs.d")
 (autoload 'auto-update-file-header "header2")
 (add-hook 'write-file-hooks 'auto-update-file-header)
@@ -191,9 +213,9 @@
 ;;
 ;; polymode (to work with R markdown .Rmd)
 ;;
-(setq load-path
-      (append '("~/.emacs.d/polymode/"  "~/.emacs.d/polymode/modes" "~/.emacs.d/markdown-mode/")
-              load-path))
+(use-package markdown-mode  :ensure markdown-mode)
+(use-package polymode       :ensure polymode)
+
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
 (require 'poly-R)
@@ -209,9 +231,46 @@
 ;;
 ;; php-mode
 ;;
-(add-to-list 'load-path' "~/.emacs.d/php-mode/")
+(use-package php-mode  :ensure php-mode)
 (require 'php-mode)
 
+;; 
+;; Ruby on Rails
+;;
+(use-package flymake-ruby  :ensure flymake-ruby)
+(use-package robe          :ensure robe)
+(use-package company       :ensure company)
+(use-package inf-ruby      :ensure inf-ruby)
+(use-package projectile    :ensure projectile)
+(use-package projectile-rails :ensure projectile-rails)
+
+(require 'flymake-ruby)
+(require 'robe)
+
+(global-set-key (kbd "C-c r r") 'inf-ruby)
+(global-company-mode t)
+
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+(add-hook 'ruby-mode-hook 'projectile-mode)
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
+(add-hook 'ruby-mode-hook 'robe-mode)
+(push 'company-robe company-backends)
+
+;;
+;; ido
+;;
+;; Display ido results vertically, rather than horizontally
+(use-package ido      :ensure ido)
+(use-package flx-ido  :ensure flx-ido)
+
+(setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
+(defun ido-disable-line-truncation () (set (make-local-variable 'truncate-lines) nil))
+(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
+(defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
+  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
+(add-hook 'ido-setup-hook 'ido-define-keys)
+(ido-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here
