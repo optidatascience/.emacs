@@ -272,5 +272,21 @@
 (add-hook 'ido-setup-hook 'ido-define-keys)
 (ido-mode t)
 
+;;
+;; Evernote Mode
+;;
+(add-to-list 'load-path "~/.emacs.d/evernote-mode")
+(require 'evernote-mode)
+(setq evernote-username "zhouliang99") ; optional: you can use this username as default.
+(setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
+(global-set-key "\C-cec" 'evernote-create-note)
+(global-set-key "\C-ceo" 'evernote-open-note)
+(global-set-key "\C-ces" 'evernote-search-notes)
+(global-set-key "\C-ceS" 'evernote-do-saved-search)
+(global-set-key "\C-cew" 'evernote-write-note)
+(global-set-key "\C-cep" 'evernote-post-region)
+(global-set-key "\C-ceb" 'evernote-browser)
+(custom-set-variables '(evernote-developer-token "S=s169:U=133b8b3:E=15086de1e7f:C=1492f2cf1b8:P=1cd:A=en-devtoken:V=2:H=8d4aad9bbed1c6e51f27e569844c8ff7"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here

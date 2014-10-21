@@ -65,6 +65,10 @@ This repo contains my personal .emacs configuaration file. It includes the follo
      This includes flymake-ruby, robe, inf-ruby projectile
      projectile-ruby
 
+   - Evernote Mode
+     
+     This needs to be installed manually. 
+
 
 ## INSTALLATION
 
@@ -83,3 +87,15 @@ This repo contains my personal .emacs configuaration file. It includes the follo
    4. Copy header2.el to ~/.emacs.d/
 
    5. The rest of the packages will be automatically installed and configured
+
+   6. Evernote mode: 
+
+      git clone https://github.com/optidatascience/.emacs.git
+   
+      you will also need ruby-oauth and w3m 
+
+      sudo gem install evernote_oauth
+
+      sudo apt-get install w3m
+
+      You'll need to get a production developer token from Evernote and in Emacs set the custom variable evernote-developer-token.
