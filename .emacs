@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Thu Oct 16 09:09:19 2014 (-0500)
+;; Last-Updated: Mon Oct 20 22:06:05 2014 (-0500)
 ;;           By: Liang Zhou
-;;     Update #: 28
+;;     Update #: 29
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -271,6 +271,22 @@
   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
 (add-hook 'ido-setup-hook 'ido-define-keys)
 (ido-mode t)
+
+;;
+;; Evernote Mode
+;;
+(add-to-list 'load-path "~/.emacs.d/evernote-mode")
+(require 'evernote-mode)
+(setq evernote-username "<evernote username>") ; optional: you can use this username as default.
+(setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
+(global-set-key "\C-cec" 'evernote-create-note)
+(global-set-key "\C-ceo" 'evernote-open-note)
+(global-set-key "\C-ces" 'evernote-search-notes)
+(global-set-key "\C-ceS" 'evernote-do-saved-search)
+(global-set-key "\C-cew" 'evernote-write-note)
+(global-set-key "\C-cep" 'evernote-post-region)
+(global-set-key "\C-ceb" 'evernote-browser)
+(custom-set-variables '(evernote-developer-token "<evernote dev token>"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here
