@@ -90,7 +90,7 @@ This repo contains my personal .emacs configuaration file. It includes the follo
 
    6. Evernote mode: 
 
-      git clone https://github.com/optidatascience/.emacs.git
+      git clone https://github.com/optidatascience/evernote-mode.git
    
       you will also need ruby-oauth and w3m 
 
