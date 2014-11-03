@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Mon Oct 20 22:06:05 2014 (-0500)
+;; Last-Updated: Mon Nov  3 09:45:39 2014 (-0600)
 ;;           By: Liang Zhou
-;;     Update #: 29
+;;     Update #: 56
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -101,7 +101,7 @@
 (define-key input-decode-map "\e[1;2A" [S-up])
 (define-key input-decode-map "\e[1;2F" [S-end])
 (define-key input-decode-map "\e[1;2H" [S-home])
-
+(global-set-key [(control h)] 'delete-backward-char)
 
 ;;
 ;; Set font size to 9 pt
@@ -243,9 +243,11 @@
 (use-package inf-ruby      :ensure inf-ruby)
 (use-package projectile    :ensure projectile)
 (use-package projectile-rails :ensure projectile-rails)
+(use-package haml-mode     :ensure haml-mode)
 
 (require 'flymake-ruby)
 (require 'robe)
+(require 'haml-mode)
 
 (global-set-key (kbd "C-c r r") 'inf-ruby)
 (global-company-mode t)
@@ -256,6 +258,10 @@
 (add-hook 'ruby-mode-hook 'robe-mode)
 (push 'company-robe company-backends)
 
+(add-hook 'haml-mode-hook
+	  (lambda ()
+	    (setq indent-tabs-mode nil)
+	    (define-key haml-mode-map "\C-m" 'newline-and-indent)))
 ;;
 ;; ido
 ;;
@@ -277,7 +283,7 @@
 ;;
 (add-to-list 'load-path "~/.emacs.d/evernote-mode")
 (require 'evernote-mode)
-(setq evernote-username "<evernote username>") ; optional: you can use this username as default.
+(setq evernote-username "zhouliang99") ; optional: you can use this username as default.
 (setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
 (global-set-key "\C-cec" 'evernote-create-note)
 (global-set-key "\C-ceo" 'evernote-open-note)
@@ -286,7 +292,36 @@
 (global-set-key "\C-cew" 'evernote-write-note)
 (global-set-key "\C-cep" 'evernote-post-region)
 (global-set-key "\C-ceb" 'evernote-browser)
-(custom-set-variables '(evernote-developer-token "<evernote dev token>"))
+;; move into ~/.emacs.d/lisp-personal
+;; (custom-set-variables '(evernote-developer-token "<EVERNOTE DEVELOPER KEY>"))
+
+
+;; 
+;; org mode
+;;
+(add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(setq org-replace-disputed-keys t)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)
+   (latex . t)
+   (python . t)))
+;; disable confirmation to evaluate code
+(setq org-confirm-babel-evaluate nil)
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
+(add-hook 'org-mode-hook 'org-display-inline-images)   
+
+
+;; 
+;; finally, load personal settings
+;;
+(add-to-list 'load-path "~/.emacs.d/lisp-personal")
+(load-library "evernote")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here

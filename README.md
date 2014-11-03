@@ -69,6 +69,10 @@ This repo contains my personal .emacs configuaration file. It includes the follo
      
      This needs to be installed manually. 
 
+   - Org Mode
+
+     This needs to be installed manually.
+
 
 ## INSTALLATION
 
@@ -98,4 +102,10 @@ This repo contains my personal .emacs configuaration file. It includes the follo
 
       sudo apt-get install w3m
 
+      Goto ~/.emacs.d/evernote-mode/ruby  and run sudo ruby setup.rb
+
       You'll need to get a production developer token from Evernote and in Emacs set the custom variable evernote-developer-token.
+
+   7. Org mode:
+
+      git clone git://orgmode.org/org-mode.git
