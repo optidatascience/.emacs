@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Mon Nov  3 09:45:39 2014 (-0600)
-;;           By: Liang Zhou
-;;     Update #: 56
+;; Last-Updated: Fri May  8 14:02:28 2015 (-0500)
+;;           By: lzhou10
+;;     Update #: 77
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -49,13 +49,13 @@
  ;; If there is more than one, they won't work right.
  '(auto-compression-mode t nil (jka-compr))
  '(case-fold-search t)
- '(cua-mode t nil (cua-base)) ;;cua mode is to set C+c and C+v as copy and paste
+ '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(global-font-lock-mode t nil (font-lock))
+ '(org-agenda-files (quote ("h:/_Org/kaggle.org" "h:/_Org/personal.org")))
  '(show-paren-mode t)
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- )
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -85,6 +85,7 @@
 ;; Color theme
 ;; this is to overide the settings above for colors
 ;; and to be consistent with using shell or x11
+(add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0/")
 (require 'color-theme)
 (color-theme-initialize)
 (if window-system
@@ -200,7 +201,7 @@
 ;; download header2.el from http://www.emacswiki.org/emacs/header2.el
 ;; header2.el is cleaned a bit
 ;;
-(add-to-list 'load-path' "~/.emacs.d")
+(add-to-list 'load-path' "C:/Users/lzhou10/AppData/Roaming/.emacs.d/header2")
 (autoload 'auto-update-file-header "header2")
 (add-hook 'write-file-hooks 'auto-update-file-header)
 
@@ -208,6 +209,7 @@
 (add-hook 'c-mode-common-hook   'auto-make-header)
 (add-hook 'python-mode-hook   'auto-make-header)
 (add-hook 'R-mode-hook   'auto-make-header)
+(add-hook 'SAS-mode-hook   'auto-make-header)
 (add-hook 'lisp-mode-hook   'auto-make-header)
 
 ;;
@@ -281,17 +283,17 @@
 ;;
 ;; Evernote Mode
 ;;
-(add-to-list 'load-path "~/.emacs.d/evernote-mode")
-(require 'evernote-mode)
-(setq evernote-username "zhouliang99") ; optional: you can use this username as default.
-(setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
-(global-set-key "\C-cec" 'evernote-create-note)
-(global-set-key "\C-ceo" 'evernote-open-note)
-(global-set-key "\C-ces" 'evernote-search-notes)
-(global-set-key "\C-ceS" 'evernote-do-saved-search)
-(global-set-key "\C-cew" 'evernote-write-note)
-(global-set-key "\C-cep" 'evernote-post-region)
-(global-set-key "\C-ceb" 'evernote-browser)
+;; (add-to-list 'load-path "~/.emacs.d/evernote-mode")
+;; (require 'evernote-mode)
+;; (setq evernote-username "zhouliang99") ; optional: you can use this username as default.
+;; (setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
+;; (global-set-key "\C-cec" 'evernote-create-note)
+;; (global-set-key "\C-ceo" 'evernote-open-note)
+;; (global-set-key "\C-ces" 'evernote-search-notes)
+;; (global-set-key "\C-ceS" 'evernote-do-saved-search)
+;; (global-set-key "\C-cew" 'evernote-write-note)
+;; (global-set-key "\C-cep" 'evernote-post-region)
+;; (global-set-key "\C-ceb" 'evernote-browser)
 ;; move into ~/.emacs.d/lisp-personal
 ;; (custom-set-variables '(evernote-developer-token "<EVERNOTE DEVELOPER KEY>"))
 
@@ -315,13 +317,37 @@
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
 (add-hook 'org-mode-hook 'org-display-inline-images)   
-
+;; setup Org with R
+(setq org-babel-R-command "C:/Users/lzhou10/_programs/R/R-3.1.3/bin/x64/R.exe --slave --no-save")
+;; start org-agenda-list after emacs starts
+;; for agenda view, turn on Diary and 
+(setq org-agenda-include-diary t)
+(setq org-agenda-span 'fortnight)
+(setq inhibit-splash-screen t)
+(org-agenda-list)
+(delete-other-windows)
 
 ;; 
 ;; finally, load personal settings
 ;;
-(add-to-list 'load-path "~/.emacs.d/lisp-personal")
-(load-library "evernote")
+;;(add-to-list 'load-path "~/.emacs.d/lisp-personal")
+;;(load-library "evernote")
+
+;;
+;; ESS
+;;
+(use-package ess      :ensure ess)
+(require 'ess-site)
+
+;; SAS setup
+;;2; (setq ess-sas-local-unix-keys nil)
+;;3; (setq ess-sas-local-pc-keys nil)
+;;4; (setq ess-sas-global-unix-keys nil)
+(setq ess-sas-global-pc-keys t)
+(ess-sas-global-pc-keys)
+(setq-default inferior-R-program-name "C:/Users/lzhou10/_programs/R/R-3.1.3/bin/x64/Rterm.exe")
+(setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
+(setq ess-sleep-for 5)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here
