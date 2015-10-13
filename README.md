@@ -11,13 +11,16 @@ This repo contains my personal .emacs configuaration file. It includes the follo
 3. Region selection by mouse
 4. Configured modules includes:
    - ESS
+
+	 [Installed automatically from Melpa]
+
    - Color Theme
+	 
+     [Installed automatically from Melpa]
+   
+   - AMPL Mode [Currently DISABLED]
 
-     sudo apt-get install emacs-goodies-el
-
-   - AMPL Mode
-
-     git clone https://github.com/dpo/ampl-mode.git
+	 git clone https://github.com/dpo/ampl-mode.git
 
    - TRAMP
    
@@ -71,7 +74,7 @@ This repo contains my personal .emacs configuaration file. It includes the follo
 
    - Org Mode
 
-     This needs to be installed manually.
+     [Installed automatically from Melpa]
 
 
 ## INSTALLATION
@@ -80,19 +83,15 @@ This repo contains my personal .emacs configuaration file. It includes the follo
 
    1. Git clone the repo
 
-   2. If running Ubuntu, make sure you install emacs-goodies-el
-   
-      sudo apt-get install emacs-goodies-el
-
-   3. Download ampl-mode
+   2. Download ampl-mode
 
       git clone https://github.com/dpo/ampl-mode.git
 
-   4. Copy header2.el to ~/.emacs.d/
+   3. Copy header2.el to ~/.emacs.d/
 
-   5. The rest of the packages will be automatically installed and configured
+   4. The rest of the packages will be automatically installed and configured
 
-   6. Evernote mode: 
+   5. Evernote mode: 
 
       git clone https://github.com/optidatascience/evernote-mode.git
    
@@ -105,7 +104,3 @@ This repo contains my personal .emacs configuaration file. It includes the follo
       Goto ~/.emacs.d/evernote-mode/ruby  and run sudo ruby setup.rb
 
       You'll need to get a production developer token from Evernote and in Emacs set the custom variable evernote-developer-token.
-
-   7. Org mode:
-
-      git clone git://orgmode.org/org-mode.git

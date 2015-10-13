@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Mon Nov  3 09:45:39 2014 (-0600)
-;;           By: Liang Zhou
-;;     Update #: 56
+;; Last-Updated: Tue Oct 13 10:01:51 2015 (-0500)
+;;           By: lzhou10
+;;     Update #: 79
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -82,16 +82,6 @@
       )
 
 ;; 
-;; Color theme
-;; this is to overide the settings above for colors
-;; and to be consistent with using shell or x11
-(require 'color-theme)
-(color-theme-initialize)
-(if window-system
-        (color-theme-calm-forest)
-	(color-theme-calm-forest))
-
-;; 
 ;; Keymap
 ;; this fixes the keymap in screen mode with screen-256color term
 ;;
@@ -107,7 +97,6 @@
 ;; Set font size to 9 pt
 (set-face-attribute 'default nil :height 90)
 
-
 ;;
 ;; Liang's convenience 
 ;;
@@ -120,9 +109,8 @@
 ;; Automatic Package Mangement
 ;;
 (require 'package)
-(add-to-list 'package-archives 
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+;;(add-to-list 'package-archives 
+;;    '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
@@ -134,16 +122,30 @@
 (require 'use-package)
 
 
+;; 
+;; Color theme
+;; this is to overide the settings above for colors
+;; and to be consistent with using shell or x11
+(use-package color-theme  :ensure color-theme)
+(require 'color-theme)
+(color-theme-initialize)
+(if window-system
+        (color-theme-calm-forest)
+	(color-theme-calm-forest))
+
 ;;
 ;; ESS
 ;;
-;;this is turned on by default now through /etc/emacs
+(use-package ess  :ensure ess)
+(require 'ess-site)
+(setq ess-S-assign-key (kbd "M--"))
+(ess-toggle-S-assign-key t)
+(ess-toggle-underscore nil)
 
 ;;
 ;; TRAMP
 ;;
-(use-package tramp
-  :ensure tramp)
+(use-package tramp  :ensure tramp)
 (require 'tramp)
 
 ;;
@@ -152,20 +154,19 @@
 ;; Tell emacs to look in our emacs directory for extensions
 ;; AMPL mode cannot be auto installed.. not in Melpa
 
-(add-to-list 'load-path "~/.emacs.d/ampl-mode/emacs/")
-
-(setq auto-mode-alist
-      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
-(setq interpreter-mode-alist
-      (cons '("ampl" . ampl-mode)
-            interpreter-mode-alist))
-(load "ampl-mode")
-;; Enable syntax coloring
-(add-hook 'ampl-mode-hook 'turn-on-font-lock)
+;; (add-to-list 'load-path "~/.emacs.d/ampl-mode/emacs/")
+;; (setq auto-mode-alist
+;;       (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
+;; (setq interpreter-mode-alist
+;;       (cons '("ampl" . ampl-mode)
+;;             interpreter-mode-alist))
+;; (load "ampl-mode")
+;; ;; Enable syntax coloring
+;; (add-hook 'ampl-mode-hook 'turn-on-font-lock)
 
 ;; If you find parenthesis matching a nuisance, turn it off by
 ;; removing the leading semi-colons on the following lines:
@@ -200,7 +201,7 @@
 ;; download header2.el from http://www.emacswiki.org/emacs/header2.el
 ;; header2.el is cleaned a bit
 ;;
-(add-to-list 'load-path' "~/.emacs.d")
+(add-to-list 'load-path' "C:/Users/lzhou10/AppData/Roaming/.emacs.d/header2")
 (autoload 'auto-update-file-header "header2")
 (add-hook 'write-file-hooks 'auto-update-file-header)
 
@@ -208,6 +209,7 @@
 (add-hook 'c-mode-common-hook   'auto-make-header)
 (add-hook 'python-mode-hook   'auto-make-header)
 (add-hook 'R-mode-hook   'auto-make-header)
+(add-hook 'SAS-mode-hook   'auto-make-header)
 (add-hook 'lisp-mode-hook   'auto-make-header)
 
 ;;
@@ -281,17 +283,17 @@
 ;;
 ;; Evernote Mode
 ;;
-(add-to-list 'load-path "~/.emacs.d/evernote-mode")
-(require 'evernote-mode)
-(setq evernote-username "zhouliang99") ; optional: you can use this username as default.
-(setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
-(global-set-key "\C-cec" 'evernote-create-note)
-(global-set-key "\C-ceo" 'evernote-open-note)
-(global-set-key "\C-ces" 'evernote-search-notes)
-(global-set-key "\C-ceS" 'evernote-do-saved-search)
-(global-set-key "\C-cew" 'evernote-write-note)
-(global-set-key "\C-cep" 'evernote-post-region)
-(global-set-key "\C-ceb" 'evernote-browser)
+;; (add-to-list 'load-path "~/.emacs.d/evernote-mode")
+;; (require 'evernote-mode)
+;; (setq evernote-username "zhouliang99") ; optional: you can use this username as default.
+;; (setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
+;; (global-set-key "\C-cec" 'evernote-create-note)
+;; (global-set-key "\C-ceo" 'evernote-open-note)
+;; (global-set-key "\C-ces" 'evernote-search-notes)
+;; (global-set-key "\C-ceS" 'evernote-do-saved-search)
+;; (global-set-key "\C-cew" 'evernote-write-note)
+;; (global-set-key "\C-cep" 'evernote-post-region)
+;; (global-set-key "\C-ceb" 'evernote-browser)
 ;; move into ~/.emacs.d/lisp-personal
 ;; (custom-set-variables '(evernote-developer-token "<EVERNOTE DEVELOPER KEY>"))
 
@@ -299,7 +301,7 @@
 ;; 
 ;; org mode
 ;;
-(add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
+(use-package org  :ensure org)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (setq org-replace-disputed-keys t)
 (global-set-key "\C-cl" 'org-store-link)
@@ -320,8 +322,19 @@
 ;; 
 ;; finally, load personal settings
 ;;
-(add-to-list 'load-path "~/.emacs.d/lisp-personal")
-(load-library "evernote")
+;;(add-to-list 'load-path "~/.emacs.d/lisp-personal")
+;;(load-library "evernote")
+
+
+;; SAS & R Windows ESS setup
+;;2; (setq ess-sas-local-unix-keys nil)
+;;3; (setq ess-sas-local-pc-keys nil)
+;;4; (setq ess-sas-global-unix-keys nil)
+(setq ess-sas-global-pc-keys t)
+(ess-sas-global-pc-keys)
+(setq-default inferior-R-program-name "C:/Users/lzhou10/_programs/R/R-3.2.2/bin/x64/Rterm.exe")
+(setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
+(setq ess-sleep-for 5)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here
