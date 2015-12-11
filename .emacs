@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Tue Oct 13 10:01:51 2015 (-0500)
+;; Last-Updated: Wed Dec  2 16:28:00 2015 (-0600)
 ;;           By: lzhou10
-;;     Update #: 79
+;;     Update #: 81
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -317,6 +317,16 @@
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
 (add-hook 'org-mode-hook 'org-display-inline-images)   
+;; enable shift-select-mode
+(setq org-support-shift-select t)
+;; add more state items
+(setq org-todo-keyword-faces
+      '(
+        ("PROGRESS"  . (:foreground "blue"   :weight bold))
+        ))
+(setq org-todo-keywords
+      '((sequence "TODO" "PROGRESS" "DONE")))
+
 
 
 ;; 
