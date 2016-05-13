@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Fri May 13 13:42:12 2016 (-0500)
+;; Last-Updated: Fri May 13 13:48:19 2016 (-0500)
 ;;           By: lzhou10
-;;     Update #: 82
+;;     Update #: 86
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -42,6 +42,10 @@
 ;; default to unified diffs
 (setq diff-switches "-u")
 
+;; Start Emacs in Windows Maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -345,6 +349,7 @@
 (setq-default inferior-R-program-name "C:/Users/lzhou10/_programs/R/bin/x64/Rterm.exe")
 (setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
 (setq ess-sleep-for 5)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here
