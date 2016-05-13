@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Wed Dec  2 16:28:00 2015 (-0600)
+;; Last-Updated: Fri May 13 13:42:12 2016 (-0500)
 ;;           By: lzhou10
-;;     Update #: 81
+;;     Update #: 82
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -342,7 +342,7 @@
 ;;4; (setq ess-sas-global-unix-keys nil)
 (setq ess-sas-global-pc-keys t)
 (ess-sas-global-pc-keys)
-(setq-default inferior-R-program-name "C:/Users/lzhou10/_programs/R/R-3.2.2/bin/x64/Rterm.exe")
+(setq-default inferior-R-program-name "C:/Users/lzhou10/_programs/R/bin/x64/Rterm.exe")
 (setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
 (setq ess-sleep-for 5)
 
