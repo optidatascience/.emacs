@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Mon Nov  3 09:45:39 2014 (-0600)
+;; Last-Updated: Fri May 20 15:47:48 2016 (-0500)
 ;;           By: Liang Zhou
-;;     Update #: 56
+;;     Update #: 89
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -25,8 +25,10 @@
 ;; 
 ;;; Code:
 
-
 ;; .emacs
+
+;; start server mode to let geeknote work
+(server-start)
 
 ;; uncomment this line to disable loading of "default.el" at startup
 ;; (setq inhibit-default-init t)
@@ -49,13 +51,13 @@
  ;; If there is more than one, they won't work right.
  '(auto-compression-mode t nil (jka-compr))
  '(case-fold-search t)
- '(cua-mode t nil (cua-base)) ;;cua mode is to set C+c and C+v as copy and paste
+ '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(global-font-lock-mode t nil (font-lock))
+ '(org-agenda-files (quote ("~/org/kaggle.org" "~/org/personal.org")))
  '(show-paren-mode t)
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- )
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -116,15 +118,22 @@
 (define-key global-map (kbd "<S-mouse-1>") 'mouse-set-point)
 (put 'mouse-set-point 'CUA 'move)
 
+;; 
+;; mac key switch alt --> cmd
+(setq mac-option-modifier 'super)
+(setq mac-command-modifier 'meta)
+
+
 ;;
 ;; Automatic Package Mangement
 ;;
 (require 'package)
-(add-to-list 'package-archives 
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+;;(add-to-list 'package-archives 
+;;    '("marmalade". "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
-    '("melpa" . "http://melpa.milkbox.net/packages/") t)
+    '("melpa". "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+    '("org". "http://orgmode.org/elpa/") t)
 (package-initialize)
 
 (if (not (package-installed-p 'use-package))
@@ -138,6 +147,10 @@
 ;; ESS
 ;;
 ;;this is turned on by default now through /etc/emacs
+;; customize R-ESS underscore
+(setq ess-S-assign-key (kbd "M--"))
+(ess-toggle-S-assign-key t)
+(ess-toggle-underscore nil)
 
 ;;
 ;; TRAMP
@@ -192,6 +205,13 @@
     "';'.join(module_completion('''%s'''))\n"
   python-shell-completion-string-code
     "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+
+
+;;
+;; ipython notebook mode to view remote notebook servers
+;;
+(use-package ein      :ensure ein)
+(require 'ein)
 
 
 ;;
@@ -278,28 +298,10 @@
 (add-hook 'ido-setup-hook 'ido-define-keys)
 (ido-mode t)
 
-;;
-;; Evernote Mode
-;;
-(add-to-list 'load-path "~/.emacs.d/evernote-mode")
-(require 'evernote-mode)
-(setq evernote-username "zhouliang99") ; optional: you can use this username as default.
-(setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
-(global-set-key "\C-cec" 'evernote-create-note)
-(global-set-key "\C-ceo" 'evernote-open-note)
-(global-set-key "\C-ces" 'evernote-search-notes)
-(global-set-key "\C-ceS" 'evernote-do-saved-search)
-(global-set-key "\C-cew" 'evernote-write-note)
-(global-set-key "\C-cep" 'evernote-post-region)
-(global-set-key "\C-ceb" 'evernote-browser)
-;; move into ~/.emacs.d/lisp-personal
-;; (custom-set-variables '(evernote-developer-token "<EVERNOTE DEVELOPER KEY>"))
-
-
 ;; 
 ;; org mode
 ;;
-(add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
+(use-package org-plus-contrib  :ensure org-plus-contrib)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (setq org-replace-disputed-keys t)
 (global-set-key "\C-cl" 'org-store-link)
@@ -307,21 +309,36 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (org-babel-do-load-languages
- 'org-babel-load-languages
- '((R . t)
-   (latex . t)
-   (python . t)))
+  'org-babel-load-languages
+  '((R . t)
+    (latex . t)
+    (python . t)))
 ;; disable confirmation to evaluate code
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
 (add-hook 'org-mode-hook 'org-display-inline-images)   
+;; start org-agenda-list after emacs starts
+;; for agenda view, turn on Diary and 
+(setq org-agenda-include-diary t)
+(setq org-agenda-span 'fortnight)
+(setq inhibit-splash-screen t)
+(org-agenda-list)
+(delete-other-windows)
 
+;;
+;; Geeknote: to work with Evernote
+;;
+(use-package geeknote  :ensure geeknote)
+(setq geeknote-command "geeknote")
 
 ;; 
 ;; finally, load personal settings
 ;;
 (add-to-list 'load-path "~/.emacs.d/lisp-personal")
-(load-library "evernote")
+
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here
