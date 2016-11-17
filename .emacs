@@ -168,20 +168,20 @@
 ;; Tell emacs to look in our emacs directory for extensions
 ;; AMPL mode cannot be auto installed.. not in Melpa
 
-(add-to-list 'load-path "~/.emacs.d/ampl-mode/emacs/")
+;; (add-to-list 'load-path "~/.emacs.d/ampl-mode/emacs/")
 
-(setq auto-mode-alist
-      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
-(setq interpreter-mode-alist
-      (cons '("ampl" . ampl-mode)
-            interpreter-mode-alist))
-(load "ampl-mode")
-;; Enable syntax coloring
-(add-hook 'ampl-mode-hook 'turn-on-font-lock)
+;; (setq auto-mode-alist
+;;       (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
+;; (setq interpreter-mode-alist
+;;       (cons '("ampl" . ampl-mode)
+;;             interpreter-mode-alist))
+;; (load "ampl-mode")
+;; ;; Enable syntax coloring
+;; (add-hook 'ampl-mode-hook 'turn-on-font-lock)
 
 ;; If you find parenthesis matching a nuisance, turn it off by
 ;; removing the leading semi-colons on the following lines:
