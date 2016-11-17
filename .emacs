@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Fri May 20 15:47:48 2016 (-0500)
+;; Last-Updated: Thu Nov 17 15:29:15 2016 (-0600)
 ;;           By: Liang Zhou
-;;     Update #: 89
+;;     Update #: 109
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -84,16 +84,6 @@
       )
 
 ;; 
-;; Color theme
-;; this is to overide the settings above for colors
-;; and to be consistent with using shell or x11
-(require 'color-theme)
-(color-theme-initialize)
-(if window-system
-        (color-theme-calm-forest)
-	(color-theme-calm-forest))
-
-;; 
 ;; Keymap
 ;; this fixes the keymap in screen mode with screen-256color term
 ;;
@@ -141,6 +131,17 @@
       (package-refresh-contents)
       (package-install 'use-package)))
 (require 'use-package)
+
+;; 
+;; Color theme
+;; this is to overide the settings above for colors
+;; and to be consistent with using shell or x11
+(use-package color-theme  :ensure color-theme)
+(require 'color-theme)
+(color-theme-initialize)
+(if window-system
+        (color-theme-calm-forest)
+  (color-theme-calm-forest))
 
 
 ;;
@@ -193,18 +194,29 @@
 ;;
 ;; python module should be installed by default
 ;;
-(require 'python)
-(setq
-  python-shell-interpreter "ipython"
-  python-shell-interpreter-args "--pylab"
-  python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-  python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-  python-shell-completion-setup-code
-    "from IPython.core.completerlib import module_completion"
-  python-shell-completion-module-string-code
-    "';'.join(module_completion('''%s'''))\n"
-  python-shell-completion-string-code
-    "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+;; (require 'python)
+;; (setq
+;;   python-shell-interpreter "ipython"
+;;   python-shell-interpreter-args "--pylab"
+;;   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+;;   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+;;   python-shell-completion-setup-code
+;;     "from IPython.core.completerlib import module_completion"
+;;   python-shell-completion-module-string-code
+;;     "';'.join(module_completion('''%s'''))\n"
+;;   python-shell-completion-string-code
+;;     "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+
+(use-package python-mode      :ensure python-mode)
+(setq py-shell-name "ipython")
+(setq py-ipython-command-args "--simple-prompt -i")
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "--simple-prompt")
+(setq-default py-split-windows-on-execute-function 'split-window-horizontally)
+(eval-after-load "python-mode"
+  '(define-key python-mode-map [(control c) (control n)] 'py-execute-line))
+(eval-after-load "python-mode"
+  '(define-key python-mode-map [(control meta x)] 'py-execute-region))
 
 
 ;;
