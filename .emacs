@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Thu Nov 17 15:30:56 2016 (-0600)
+;; Last-Updated: Thu Nov 17 15:42:58 2016 (-0600)
 ;;           By: Liang Zhou
-;;     Update #: 110
+;;     Update #: 111
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -315,7 +315,7 @@
 ;; 
 ;; org mode
 ;;
-(use-package org-plus-contrib  :ensure org-plus-contrib)
+(use-package org  :ensure org)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (setq org-replace-disputed-keys t)
 (global-set-key "\C-cl" 'org-store-link)
@@ -323,14 +323,23 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (org-babel-do-load-languages
-  'org-babel-load-languages
-  '((R . t)
-    (latex . t)
-    (python . t)))
+ 'org-babel-load-languages
+ '((R . t)
+   (latex . t)
+   (python . t)))
 ;; disable confirmation to evaluate code
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
 (add-hook 'org-mode-hook 'org-display-inline-images)   
+;; enable shift-select-mode
+(setq org-support-shift-select t)
+;; add more state items
+(setq org-todo-keyword-faces
+      '(
+        ("PROGRESS"  . (:foreground "blue"   :weight bold))
+        ))
+(setq org-todo-keywords
+      '((sequence "TODO" "PROGRESS" "DONE")))
 ;; start org-agenda-list after emacs starts
 ;; for agenda view, turn on Diary and 
 (setq org-agenda-include-diary t)
