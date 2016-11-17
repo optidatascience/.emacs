@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Thu Nov 17 15:29:15 2016 (-0600)
+;; Last-Updated: Thu Nov 17 15:30:56 2016 (-0600)
 ;;           By: Liang Zhou
-;;     Update #: 109
+;;     Update #: 110
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -149,6 +149,8 @@
 ;;
 ;;this is turned on by default now through /etc/emacs
 ;; customize R-ESS underscore
+(use-package ess  :ensure ess)
+(require 'ess-site)
 (setq ess-S-assign-key (kbd "M--"))
 (ess-toggle-S-assign-key t)
 (ess-toggle-underscore nil)
