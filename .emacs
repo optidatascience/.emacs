@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Fri May 13 13:48:19 2016 (-0500)
+;; Last-Updated: Fri Nov 18 15:09:06 2016 (-0600)
 ;;           By: lzhou10
-;;     Update #: 86
+;;     Update #: 88
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -42,10 +42,6 @@
 ;; default to unified diffs
 (setq diff-switches "-u")
 
-;; Start Emacs in Windows Maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -53,13 +49,15 @@
  ;; If there is more than one, they won't work right.
  '(auto-compression-mode t nil (jka-compr))
  '(case-fold-search t)
- '(cua-mode t nil (cua-base)) ;;cua mode is to set C+c and C+v as copy and paste
+ '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(global-font-lock-mode t nil (font-lock))
+ '(package-selected-packages
+   (quote
+    (flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ein ess color-theme use-package)))
  '(show-paren-mode t)
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- )
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -197,6 +195,12 @@
     "';'.join(module_completion('''%s'''))\n"
   python-shell-completion-string-code
     "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+
+
+;; ipython notebook
+(use-package ein  :ensure ein)
+(require 'ein)
+;; (setq ein:use-auto-complete t)
 
 
 ;;
@@ -349,7 +353,6 @@
 (setq-default inferior-R-program-name "C:/Users/lzhou10/_programs/R/bin/x64/Rterm.exe")
 (setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
 (setq ess-sleep-for 5)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; .emacs ends here
