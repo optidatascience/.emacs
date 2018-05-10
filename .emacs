@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Fri May 13 13:48:19 2016 (-0500)
+;; Last-Updated: Mon Apr 30 14:55:11 2018 (-0500)
 ;;           By: lzhou10
-;;     Update #: 86
+;;     Update #: 130
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -53,13 +53,16 @@
  ;; If there is more than one, they won't work right.
  '(auto-compression-mode t nil (jka-compr))
  '(case-fold-search t)
- '(cua-mode t nil (cua-base)) ;;cua mode is to set C+c and C+v as copy and paste
+ '(cua-mode t nil (cua-base))
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(global-font-lock-mode t nil (font-lock))
+ '(org-agenda-files nil)
+ '(package-selected-packages
+   (quote
+    (elpy company-anaconda anaconda-mode ein flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ess color-theme use-package)))
  '(show-paren-mode t)
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- )
+ '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -76,10 +79,10 @@
 	 (height            . 40)
 	 (background-color  . "black")
 	 (foreground-color  . "green")
-	 ;;(mouse-color       . "blue")
+	 (mouse-color       . "blue")
 	 (cursor-color      . "red")
-	 ;;(face-color        . "black")
-	 ;;(face-backgound-color  . "#FFFFEEEECCCC")
+	 (face-color        . "black")
+	 (face-backgound-color  . "#FFFFEEEECCCC")
 	 ) 
        default-frame-alist
        )
@@ -185,18 +188,43 @@
 ;;
 ;; python module should be installed by default
 ;;
-(require 'python)
-(setq
-  python-shell-interpreter "ipython"
-  python-shell-interpreter-args "--pylab"
-  python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-  python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-  python-shell-completion-setup-code
-    "from IPython.core.completerlib import module_completion"
-  python-shell-completion-module-string-code
-    "';'.join(module_completion('''%s'''))\n"
-  python-shell-completion-string-code
-    "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+(elpy-enable)
+(setq elpy-rpc-backend "jedi")
+
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+(add-hook 'inferior-python-mode-hook 'visual-line-mode)
+
+(defun mydef-RET ()
+  "define RET behavior in python"
+  (interactive)
+  (setq current-line (what-line))
+  (end-of-buffer)
+  (if (string=  current-line (what-line))
+      (comint-send-input)))
+(define-key inferior-python-mode-map (kbd "RET") 'mydef-RET)
+
+(define-key elpy-mode-map (kbd "C-x C-n") 'elpy-shell-send-group-and-step)
+
+(defun mydef-eval-line ()
+  "eval line and step"
+  (interactive)
+  (setq current-line (what-line))
+  (elpy-shell-send-statement-and-step)
+  (if (string=  current-line (what-line))
+      (progn
+	(end-of-line)
+	(newline))))
+
+(define-key elpy-mode-map (kbd "C-c C-n") 'mydef-eval-line)
+(define-key elpy-mode-map (kbd "C-M-x") 'elpy-shell-send-region-or-buffer)
+
+(setq python-shell-prompt-detect-failure-warning nil)
+(setq python-shell-completion-native-enable nil)
+(setq elpy-rpc-python-command "c:/Users/lzhou10/_programs/Continuum/anaconda3/python.exe")
+(setq python-shell-interpreter "c:/Users/lzhou10/_programs/Continuum/anaconda3/Scripts/ipython3.exe"
+      python-shell-interpreter-args "-i --simple-prompt")
+
+
 
 
 ;;
@@ -215,6 +243,8 @@
 (add-hook 'R-mode-hook   'auto-make-header)
 (add-hook 'SAS-mode-hook   'auto-make-header)
 (add-hook 'lisp-mode-hook   'auto-make-header)
+(add-hook 'python-mode-hook   'anaconda-mode)
+(add-hook 'python-mode-hook   'anaconda-eldoc-mode)
 
 ;;
 ;; polymode (to work with R markdown .Rmd)
@@ -349,6 +379,7 @@
 (setq-default inferior-R-program-name "C:/Users/lzhou10/_programs/R/bin/x64/Rterm.exe")
 (setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
 (setq ess-sleep-for 5)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
