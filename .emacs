@@ -188,6 +188,10 @@
 ;;
 ;; python module should be installed by default
 ;;
+(use-package elpy  :ensure elpy)
+(use-package anaconda-mode  :ensure anaconda-mode)
+(use-package company-anaconda  :ensure company-anaconda)
+
 (elpy-enable)
 (setq elpy-rpc-backend "jedi")
 
