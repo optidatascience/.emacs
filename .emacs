@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Thu Nov 17 15:42:58 2016 (-0600)
+;; Last-Updated: Mon May 14 23:23:00 2018 (-0400)
 ;;           By: Liang Zhou
-;;     Update #: 111
+;;     Update #: 120
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -55,7 +55,10 @@
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(global-font-lock-mode t nil (font-lock))
- '(org-agenda-files (quote ("~/org/kaggle.org" "~/org/personal.org")))
+ '(org-agenda-files nil)
+ '(package-selected-packages
+   (quote
+    (company-anaconda anaconda-mode geeknote flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode markdown-mode use-package python-mode polymode ess ein color-theme)))
  '(show-paren-mode t)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
 
@@ -210,16 +213,47 @@
 ;;     "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
 (use-package python-mode      :ensure python-mode)
-(setq py-shell-name "ipython")
-(setq py-ipython-command-args "--simple-prompt -i")
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "--simple-prompt")
-(setq-default py-split-windows-on-execute-function 'split-window-horizontally)
-(eval-after-load "python-mode"
-  '(define-key python-mode-map [(control c) (control n)] 'py-execute-line))
-(eval-after-load "python-mode"
-  '(define-key python-mode-map [(control meta x)] 'py-execute-region))
+(use-package elpy             :ensure elpy)
 
+(use-package elpy  :ensure elpy)
+(use-package anaconda-mode  :ensure anaconda-mode)
+(use-package company-anaconda  :ensure company-anaconda)
+
+(elpy-enable)
+(setq elpy-rpc-backend "jedi")
+
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
+(add-hook 'inferior-python-mode-hook 'visual-line-mode)
+
+(defun mydef-RET ()
+  "define RET behavior in python"
+  (interactive)
+  (setq current-line (what-line))
+  (end-of-buffer)
+  (if (string=  current-line (what-line))
+      (comint-send-input)))
+(define-key inferior-python-mode-map (kbd "RET") 'mydef-RET)
+
+(define-key elpy-mode-map (kbd "C-x C-n") 'elpy-shell-send-group-and-step)
+
+(defun mydef-eval-line ()
+  "eval line and step"
+  (interactive)
+  (setq current-line (what-line))
+  (elpy-shell-send-statement-and-step)
+  (if (string=  current-line (what-line))
+      (progn
+	(end-of-line)
+	(newline))))
+
+(define-key elpy-mode-map (kbd "C-c C-n") 'mydef-eval-line)
+(define-key elpy-mode-map (kbd "C-M-x")   'elpy-shell-send-region-or-buffer)
+
+(setq python-shell-prompt-detect-failure-warning nil)
+(setq python-shell-completion-native-enable nil)
+(setq elpy-rpc-python-command "python")
+(setq python-shell-interpreter "ipython3"
+      python-shell-interpreter-args "-i --simple-prompt")
 
 ;;
 ;; ipython notebook mode to view remote notebook servers
@@ -234,7 +268,7 @@
 ;; download header2.el from http://www.emacswiki.org/emacs/header2.el
 ;; header2.el is cleaned a bit
 ;;
-(add-to-list 'load-path' "~/.emacs.d")
+(add-to-list 'load-path' "~/.emacs.d/lisp")
 (autoload 'auto-update-file-header "header2")
 (add-hook 'write-file-hooks 'auto-update-file-header)
 
