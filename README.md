@@ -6,75 +6,34 @@ emacs config file
 This repo contains my personal .emacs configuaration file. It includes the following features,
 
 
-1. Green font, black background
+1. Green font, black background [colortheme package]
 2. Windows-like C+x cut, C+c copy and C+v paste
 3. Region selection by mouse
 4. Configured modules includes:
    - ESS
-
-	 [Installed automatically from Melpa]
-
    - Color Theme
-	 
-     [Installed automatically from Melpa]
-   
    - AMPL Mode [Currently DISABLED]
-
-	 git clone https://github.com/dpo/ampl-mode.git
-
    - TRAMP
-   
-     [Installed automatically from Melpa]
-
-     git clone git://git.savannah.gnu.org/tramp.git
-
-   - IPython Mode (Make header is included for the above modes)
-
+   - Python Mode (works with ipython, anaconda, customized key binding C-n
+     C-M-x as ESS)
    - Markdown Mode
-
-     [Installed automatically from Melpa]
-
-     git clone git://jblevins.org/git/markdown-mode.git
-
    - PolyMode git clone (to work with R markdown .Rmd)
-
-     [Installed automatically from Melpa]
-
-     git clone https://github.com/vitoshka/polymode.git
-
    - PHP mode
-
-     [Installed automatically from Melpa]
-
-     git clone https://github.com/ejmr/php-mode.git
-
-   - Ido mode
-
-     [Installed automatically from Melpa]
-
+   - Ido mode (dropdown menus)
+   
      Including ido and flx-ido to bring a new look of C-x C-f and C-x
      C-b
 
-   - Company mode
-
-     [Installed automatically from Melpa]
+	- Company mode
 
      Enable autocompletion for lots programs
 
    - Ruby Suite
-
-     [Installed automatically from Melpa]
-
-     This includes flymake-ruby, robe, inf-ruby projectile
+	 
+	 This includes flymake-ruby, robe, inf-ruby projectile
      projectile-ruby
 
-   - Evernote Mode
-     
-     This needs to be installed manually. 
-
    - Org Mode
-
-     [Installed automatically from Melpa]
 
 
 ## INSTALLATION
@@ -83,24 +42,6 @@ This repo contains my personal .emacs configuaration file. It includes the follo
 
    1. Git clone the repo
 
-   2. Download ampl-mode
+   2. Copy header2.el to ~/.emacs.d/header2
 
-      git clone https://github.com/dpo/ampl-mode.git
-
-   3. Copy header2.el to ~/.emacs.d/
-
-   4. The rest of the packages will be automatically installed and configured
-
-   5. Evernote mode: 
-
-      git clone https://github.com/optidatascience/evernote-mode.git
-   
-      you will also need ruby-oauth and w3m 
-
-      sudo gem install evernote_oauth
-
-      sudo apt-get install w3m
-
-      Goto ~/.emacs.d/evernote-mode/ruby  and run sudo ruby setup.rb
-
-      You'll need to get a production developer token from Evernote and in Emacs set the custom variable evernote-developer-token.
+   3. The rest of the packages will be automatically installed and configured
