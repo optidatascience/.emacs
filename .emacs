@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Mon Apr 30 14:55:11 2018 (-0500)
+;; Last-Updated: Wed Oct  3 13:44:38 2018 (-0500)
 ;;           By: lzhou10
-;;     Update #: 130
+;;     Update #: 150
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -60,7 +60,7 @@
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (elpy company-anaconda anaconda-mode ein flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ess color-theme use-package)))
+    (poly-markdown elpy company-anaconda anaconda-mode ein flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ess color-theme use-package poly-R)))
  '(show-paren-mode t)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
 
@@ -144,6 +144,7 @@
 ;; ESS
 ;;
 (use-package ess  :ensure ess)
+(use-package julia-mode  :ensure julia-mode)
 (require 'ess-site)
 (setq ess-S-assign-key (kbd "M--"))
 (ess-toggle-S-assign-key t)
@@ -253,19 +254,21 @@
 ;;
 ;; polymode (to work with R markdown .Rmd)
 ;;
-(use-package markdown-mode  :ensure markdown-mode)
+;;(use-package markdown-mode  :ensure markdown-mode)
 (use-package polymode       :ensure polymode)
+(use-package poly-markdown  :ensure poly-markdown)
+(use-package poly-R  :ensure poly-R)
+(use-package poly-noweb  :ensure poly-noweb)
 
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(require 'poly-R)
-(require 'poly-markdown)
+(autoload 'markdown-mode "markdown-mode"  "Major mode for editing Markdown files" t)
+
+;;(require 'poly-markdown)
 ;; MARKDOWN
 (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
 ;; R modes
 (add-to-list 'auto-mode-alist '("\\.Snw" . poly-noweb+r-mode))
 ;; Remove Rnw for now, as emacs has built-in support for .Rnw
-;;(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
+(add-to-list 'auto-mode-alist '("\\.Rnw" . poly-noweb+r-mode))
 (add-to-list 'auto-mode-alist '("\\.Rmd" . poly-markdown+r-mode))
 
 ;;
