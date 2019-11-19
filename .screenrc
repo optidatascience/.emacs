@@ -109,10 +109,12 @@ defnonblock 5
 # screen -t monkey ssh monkey
 # screen -t mail 8 mutt
 # screen -t daemon 9 tail -f /var/log/daemon.log
+# screen -t /bin/bash 
+
 
 # ------------------------------------------------------------------------------
 # Liang added
 # ------------------------------------------------------------------------------
 ## to retain the color settings from orig. shell
 term screen-256color
-
+defshell -bash 

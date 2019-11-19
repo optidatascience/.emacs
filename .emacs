@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Wed Oct  3 13:44:38 2018 (-0500)
-;;           By: lzhou10
-;;     Update #: 150
+;; Last-Updated: Mon Nov 18 09:03:55 2019 (-0600)
+;;           By: Zhou
+;;     Update #: 179
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -57,10 +57,12 @@
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(global-font-lock-mode t nil (font-lock))
- '(org-agenda-files nil)
+ '(org-agenda-files
+   (quote
+    ("/Users/lzhou10/org/Deep_Learning.org" "/Users/lzhou10/org/SOA.org" "/Users/lzhou10/org/Yukon.org" "/Users/lzhou10/org/aarp.org" "/Users/lzhou10/org/conference.org" "/Users/lzhou10/org/hcci.org" "/Users/lzhou10/org/innovation.org" "/Users/lzhou10/org/kaggle.org" "/Users/lzhou10/org/medicare.org" "/Users/lzhou10/org/personal.org" "/Users/lzhou10/org/proj_init_mtg.org" "/Users/lzhou10/org/refile.org" "/Users/lzhou10/org/work_TCE.org")))
  '(package-selected-packages
    (quote
-    (poly-markdown elpy company-anaconda anaconda-mode ein flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ess color-theme use-package poly-R)))
+    (org-gcal poly-markdown elpy company-anaconda anaconda-mode ein flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ess color-theme use-package poly-R)))
  '(show-paren-mode t)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
 
@@ -75,8 +77,6 @@
 (setq default-frame-alist
       (append
        '(
-	 (width             . 150)
-	 (height            . 40)
 	 (background-color  . "black")
 	 (foreground-color  . "green")
 	 (mouse-color       . "blue")
@@ -99,10 +99,11 @@
 (define-key input-decode-map "\e[1;2F" [S-end])
 (define-key input-decode-map "\e[1;2H" [S-home])
 (global-set-key [(control h)] 'delete-backward-char)
-
+(global-set-key (kbd "<home>") 'beginning-of-line)
+(global-set-key (kbd "<end>") 'end-of-line)
 ;;
 ;; Set font size to 9 pt
-(set-face-attribute 'default nil :height 90)
+(set-face-attribute 'default nil :height 120)
 
 ;;
 ;; Liang's convenience 
@@ -119,7 +120,7 @@
 ;;(add-to-list 'package-archives 
 ;;    '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
-    '("melpa" . "http://melpa.milkbox.net/packages/") t)
+    '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
 (if (not (package-installed-p 'use-package))
@@ -225,8 +226,8 @@
 
 (setq python-shell-prompt-detect-failure-warning nil)
 (setq python-shell-completion-native-enable nil)
-(setq elpy-rpc-python-command "c:/Users/lzhou10/_programs/Continuum/anaconda3/python.exe")
-(setq python-shell-interpreter "c:/Users/lzhou10/_programs/Continuum/anaconda3/Scripts/ipython3.exe"
+;; (setq elpy-rpc-python-command "c:/Users/lzhou10/_programs/Continuum/anaconda3/python.exe")
+(setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
 
 
@@ -238,7 +239,7 @@
 ;; download header2.el from http://www.emacswiki.org/emacs/header2.el
 ;; header2.el is cleaned a bit
 ;;
-(add-to-list 'load-path' "C:/Users/lzhou10/AppData/Roaming/.emacs.d/header2")
+(add-to-list 'load-path' "~/.emacs.d/header2")
 (autoload 'auto-update-file-header "header2")
 (add-hook 'write-file-hooks 'auto-update-file-header)
 
@@ -339,36 +340,23 @@
 ;; (custom-set-variables '(evernote-developer-token "<EVERNOTE DEVELOPER KEY>"))
 
 
+;; SAS & R Windows ESS setup
+;;2; (setq ess-sas-local-unix-keys nil)
+;;3; (setq ess-sas-local-pc-keys nil)
+;;4; (setq ess-sas-global-unix-keys nil)
+;; (setq ess-sas-global-pc-keys t)
+;; (ess-sas-global-pc-keys)
+(setq-default inferior-R-program-name
+	      "/Users/lzhou10/opt/anaconda3/bin/R")
+;; (setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
+(setq ess-sleep-for 5)
+
+
 ;; 
 ;; org mode
 ;;
 (use-package org  :ensure org)
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(setq org-replace-disputed-keys t)
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((R . t)
-   (latex . t)
-   (python . t)))
-;; disable confirmation to evaluate code
-(setq org-confirm-babel-evaluate nil)
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
-(add-hook 'org-mode-hook 'org-display-inline-images)   
-;; enable shift-select-mode
-(setq org-support-shift-select t)
-;; add more state items
-(setq org-todo-keyword-faces
-      '(
-        ("PROGRESS"  . (:foreground "blue"   :weight bold))
-        ))
-(setq org-todo-keywords
-      '((sequence "TODO" "PROGRESS" "DONE")))
-
-
+(load "~/emacsconfig/orgmode.el")
 
 ;; 
 ;; finally, load personal settings
@@ -377,15 +365,6 @@
 ;;(load-library "evernote")
 
 
-;; SAS & R Windows ESS setup
-;;2; (setq ess-sas-local-unix-keys nil)
-;;3; (setq ess-sas-local-pc-keys nil)
-;;4; (setq ess-sas-global-unix-keys nil)
-(setq ess-sas-global-pc-keys t)
-(ess-sas-global-pc-keys)
-(setq-default inferior-R-program-name "C:/Users/lzhou10/_programs/R/bin/x64/Rterm.exe")
-(setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
-(setq ess-sleep-for 5)
 
 
 
