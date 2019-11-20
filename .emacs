@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Mon Nov 18 09:03:55 2019 (-0600)
-;;           By: Zhou
-;;     Update #: 179
+;; Last-Updated: Wed Nov 20 10:18:26 2019 (-0600)
+;;           By: Liang Zhou
+;;     Update #: 180
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -62,7 +62,7 @@
     ("/Users/lzhou10/org/Deep_Learning.org" "/Users/lzhou10/org/SOA.org" "/Users/lzhou10/org/Yukon.org" "/Users/lzhou10/org/aarp.org" "/Users/lzhou10/org/conference.org" "/Users/lzhou10/org/hcci.org" "/Users/lzhou10/org/innovation.org" "/Users/lzhou10/org/kaggle.org" "/Users/lzhou10/org/medicare.org" "/Users/lzhou10/org/personal.org" "/Users/lzhou10/org/proj_init_mtg.org" "/Users/lzhou10/org/refile.org" "/Users/lzhou10/org/work_TCE.org")))
  '(package-selected-packages
    (quote
-    (org-gcal poly-markdown elpy company-anaconda anaconda-mode ein flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ess color-theme use-package poly-R)))
+    (org-gcal poly-markdown elpy company-anaconda anaconda-mode ein flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ess use-package poly-R)))
  '(show-paren-mode t)
  '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify))))
 
@@ -134,12 +134,11 @@
 ;; Color theme
 ;; this is to overide the settings above for colors
 ;; and to be consistent with using shell or x11
-(use-package color-theme  :ensure color-theme)
-(require 'color-theme)
-(color-theme-initialize)
-(if window-system
-        (color-theme-calm-forest)
-	(color-theme-calm-forest))
+(use-package color-theme-modern  :ensure color-theme-modern)
+(require 'color-theme-modern)
+(load-theme 'calm-forest t t)
+(enable-theme 'calm-forest)
+
 
 ;;
 ;; ESS
