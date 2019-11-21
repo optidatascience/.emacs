@@ -7,9 +7,9 @@
 ;; Created: Wed Apr 16 14:05:51 2014 (-0500)
 ;; Version: 
 ;; Package-Requires: ()
-;; Last-Updated: Wed Nov 20 10:18:26 2019 (-0600)
-;;           By: Liang Zhou
-;;     Update #: 180
+;; Last-Updated: Thu Nov 21 13:50:28 2019 (-0600)
+;;           By: Zhou
+;;     Update #: 182
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
 ;;; Commentary: 
@@ -57,9 +57,6 @@
  '(current-language-environment "UTF-8")
  '(default-input-method "rfc1345")
  '(global-font-lock-mode t nil (font-lock))
- '(org-agenda-files
-   (quote
-    ("/Users/lzhou10/org/Deep_Learning.org" "/Users/lzhou10/org/SOA.org" "/Users/lzhou10/org/Yukon.org" "/Users/lzhou10/org/aarp.org" "/Users/lzhou10/org/conference.org" "/Users/lzhou10/org/hcci.org" "/Users/lzhou10/org/innovation.org" "/Users/lzhou10/org/kaggle.org" "/Users/lzhou10/org/medicare.org" "/Users/lzhou10/org/personal.org" "/Users/lzhou10/org/proj_init_mtg.org" "/Users/lzhou10/org/refile.org" "/Users/lzhou10/org/work_TCE.org")))
  '(package-selected-packages
    (quote
     (org-gcal poly-markdown elpy company-anaconda anaconda-mode ein flx-ido haml-mode projectile-rails projectile company robe flymake-ruby php-mode polymode markdown-mode ess use-package poly-R)))
@@ -225,7 +222,7 @@
 
 (setq python-shell-prompt-detect-failure-warning nil)
 (setq python-shell-completion-native-enable nil)
-;; (setq elpy-rpc-python-command "c:/Users/lzhou10/_programs/Continuum/anaconda3/python.exe")
+(setq elpy-rpc-python-command "/Users/lzhou10/opt/anaconda3/bin/python")
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
 
@@ -345,8 +342,7 @@
 ;;4; (setq ess-sas-global-unix-keys nil)
 ;; (setq ess-sas-global-pc-keys t)
 ;; (ess-sas-global-pc-keys)
-(setq-default inferior-R-program-name
-	      "/Users/lzhou10/opt/anaconda3/bin/R")
+(setq-default inferior-R-program-name  "/Users/lzhou10/opt/anaconda3/bin/R")
 ;; (setq ess-sas-submit-command "E:/Program Files/SASHome/SASFoundation/9.4/sas.exe")
 (setq ess-sleep-for 5)
 
